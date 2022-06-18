@@ -61,7 +61,7 @@ public:
     void setDone()
     {
         string str;
-        cout << "Çàâåðøåíî? (Y/N): ";
+        cout << "Завершено? (Y/N): ";
         cin >> str;
         this->isFinished = str == "Y";
     }
@@ -72,39 +72,39 @@ public:
         getline(cin, name);
         strcpy(this->errorName, name.c_str());
         string str;
-        cout << "Ââåäèòå îïèñàíèå îøèáêè: ";
+        cout << "Введите описание ошибки: ";
         getline(cin, str);
         strcpy(this->errorDescription, str.c_str());
 
         while (true) {
-            cout << "Ââåäèòå ñòàòóñ îøèáêè: " << endl;
-            cout << "\n\t[1] - Ïðèåìëåìûé\n\t[2] - Ñðåäíèé\n\t[3] - Êðèòè÷åñêèé" << endl;
+            cout << "Введите статус ошибки: " << endl;
+            cout << "\n\t[1] - Приемлемый\n\t[2] - Средний\n\t[3] - Критический" << endl;
             int status = GetInt();
             if (status > 0 && status <= 3) {
                 if (status == 1) {
-                    strcpy(this->errorStatus, "Ïðèåìëåìûé");
+                    strcpy(this->errorStatus, "Приемлемый");
                     break;
                 }
                 else if (status == 2) {
-                    strcpy(this->errorStatus, "Ñðåäíèé");
+                    strcpy(this->errorStatus, "Средний");
                     break;
                 }
                 else if (status == 3) {
-                    strcpy(this->errorStatus, "Êðèòè÷åñêèé");
+                    strcpy(this->errorStatus, "Критический");
                     break;
                 }
             }
             else {
-                cout << "\nÂâåäèòå êîððåêòíûé ñòàòóñ";
+                cout << "\nВведите корректный статус";
                 continue;
             }
         }
-        cout << "Ââåäèòå èìÿ ïîëüçîâàòåëÿ, êîòîðîìó ïðèíàäëåæèò îøèáêà: ";
+        cout << "Введите имя пользователя, которому принадлежит ошибка: ";
         cin.ignore(10000, '\n');
         cin.clear();
         getline(cin, str);
         strcpy(this->owner,str.c_str());
-        cout << "Çàâåðøåíî? (Y/N): ";
+        cout << "Завершено? (Y/N): ";
         cin >> str;
         this->isFinished = str == "Y";
     }
@@ -112,8 +112,8 @@ public:
         return isFinished;
     }
     void getInformation() {
-        cout << "Îøèáêà: " << this->errorName << "\nÎïèñàíèå: " << this->errorDescription << "\nÊðèòè÷íîñòü: " << this->errorStatus
-            << "\nÑòàòóñ: " << (this->isFinished ? "Çàâåðøåíî" : "Íå çàâåðøåíî") <<"\nÏðèíàäëåæèò: "<< owner << "\n" << endl;
+        cout << "Ошибка: " << this->errorName << "\nОписание: " << this->errorDescription << "\nКритичность: " << this->errorStatus
+            << "\nСтатус: " << (this->isFinished ? "Завершено" : "Не завершено") <<"\nПринадлежит: "<< owner << "\n" << endl;
     }
     friend bool operator<(Error a, Error b) {
         return a.returnIsFinished() < b.returnIsFinished();
@@ -122,8 +122,8 @@ public:
         return a.returnIsFinished() > b.returnIsFinished();
     }
     friend ostream& operator << (ostream os, const Error err) {
-        return os << "Îøèáêà: " << err.errorName << "\nÎïèñàíèå: " << err.errorDescription << "\nÊðèòè÷íîñòü: " << err.errorStatus
-            << "\nÑòàòóñ: " << (err.isFinished ? "Çàâåðøåíî" : "Íå çàâåðøåíî") << "\nÏðèíàäëåæèò: " << err.owner << "\n" << endl;
+        return os << "Ошибка: " << err.errorName << "\nОписание: " << err.errorDescription << "\nКритичность: " << err.errorStatus
+            << "\nСтатус: " << (err.isFinished ? "Завершено" : "Не завершено") << "\nПринадлежит: " << err.owner << "\n" << endl;
     }
 };
 
@@ -162,9 +162,9 @@ public:
     static void editErr(vector<Error>& vecErr, int i);
 };
 
-string UserFile("C:\\userList.bin");
-string TasksFile("C:\\tasksList.bin");
-string ErrorsFile("C:\\errorsList.bin");
+string UserFile("C:\\Users\\bahar\\Desktop\\userList.bin");
+string TasksFile("C:\\Users\\bahar\\Desktop\\tasksList.bin");
+string ErrorsFile("C:\\Users\\bahar\\Desktop\\errorsList.bin");
 
 int main(int argc, char* argv[])
 {
@@ -186,7 +186,7 @@ void menu::userChoice() {
         string name, access;
         string password;
         int temp;
-        cout << "Êàêîãî ïîëüçîâàòåëÿ õîòèòå âûáðàòü?" << endl;
+        cout << "Какого пользователя хотите выбрать?" << endl;
         fstream file;
         User a;
         file.open(UserFile, ios::app | ios::out | ios::in | ios::binary);
@@ -194,15 +194,15 @@ void menu::userChoice() {
         if (file) {
             file.seekg(0);
             while (file.read(reinterpret_cast<char*>(&a), sizeof(User))) {
-                cout << i << ") " << a.getUserName() << ": " << (a.getStatus() ? "Àäìèí" : "Ïîëüçîâàòåëü") << endl;
+                cout << i << ") " << a.getUserName() << ": " << (a.getStatus() ? "Админ" : "Пользователь") << endl;
                 i++;
             }
             file.close();
-            cout << "\n" << "[-1] Ñîçäàòü íîâîãî ïîëüçîâàòåëÿ" << endl;
-            cout << "[0] Âûõîä" << endl;
+            cout << "\n" << "[-1] Создать нового пользователя" << endl;
+            cout << "[0] Выход" << endl;
         }
         else {
-            cout << "Îøèáî÷êà âûøëà";
+            cout << "Ошибочка вышла";
         }
         temp = GetInt();
         cin.ignore(10000, '\n');
@@ -213,10 +213,10 @@ void menu::userChoice() {
             file.seekp(pos, ios_base::beg);
             file.read(reinterpret_cast<char*>(&a), sizeof(User));
             file.close();
-            cout << "Ââåäèòå ïàðîëü:" << endl;
+            cout << "Введите пароль:" << endl;
             password = InputPassword();
             if (to_string(hash_value(password)) == a.getPassword()) {
-                cout << "\n" << "Ïàðîëü ñîâïàë" << endl;
+                cout << "\n" << "Пароль совпал" << endl;
                 if (a.getStatus()) {
                     menu::adminMenu();
                 }
@@ -225,7 +225,7 @@ void menu::userChoice() {
                 }
             }
             else {
-                cout << "\nÍåïðàâèëüíûé ïàðîëü" << endl;
+                cout << "\nНеправильный пароль" << endl;
             }
         }
         else if (temp == -1) {
@@ -235,7 +235,7 @@ void menu::userChoice() {
             exit(0);
         }
         else {
-            cout << "Òàêîãî ïîëüçîâàòåëÿ íåò" << endl;
+            cout << "Такого пользователя нет" << endl;
         }
     }
 }
@@ -244,14 +244,14 @@ void menu :: createUser() {
     string name;
     string password;
     system("cls");
-    cout << "Ââåäèòå èìÿ ïîëüçîâàòåëÿ:" << endl;
+    cout << "Введите имя пользователя:" << endl;
     getline(cin, name);
-    cout << "Ââåäèòå òèï äîñòóïà:\n\t[0] - Àäìèí\n\t[1] - Ïîëüçîâàòåëü" << endl;
+    cout << "Введите тип доступа:\n\t[0] - Админ\n\t[1] - Пользователь" << endl;
     int access = GetInt();
     cin.ignore(10000, '\n');
     cin.clear();
     bool found = false;
-    cout << "Ââåäèòå ïàðîëü:" << endl;
+    cout << "Введите пароль:" << endl;
     char c;
     int len;
     password = InputPassword();
@@ -267,7 +267,7 @@ void menu :: createUser() {
     file.seekg(0);
     while (file.read(reinterpret_cast<char*>(&a), sizeof(User))) {
         if (name == a.getUserName()) {
-            cout << "Ïîëüçîâàòåëü ñ ýòèì èìåíåì óæå ñóùåñòâóåò" << endl;
+            cout << "Пользователь с этим именем уже существует" << endl;
             system("pause");
             found = true;
             break;
@@ -288,7 +288,7 @@ void menu :: userMenu(User user) {
     cout << "userMenu" << endl;
     
     while (true) {
-        cout << "×òî áû âû õîòåëè ïðîñìîòðåòü?\n\t[1] - Çàäà÷è\n\t[2] - Îøèáêè\n\t[0] - Âûõîä" << endl;
+        cout << "Что бы вы хотели просмотреть?\n\t[1] - Задачи\n\t[2] - Ошибки\n\t[0] - Выход" << endl;
         int t = GetInt();
         if (t == 1) {
             menu::showTasks(user);
@@ -301,14 +301,14 @@ void menu :: userMenu(User user) {
             break;
         }
         else {
-            cout << "Ââåäèòå êîððåòíûé íîìåð" << endl;
+            cout << "Введите корретный номер" << endl;
         }
     }  
 }
 void menu::showTasks(User user) {
     while (true) {
         system("cls");
-        cout << "Çàäà÷è" << endl;
+        cout << "Задачи" << endl;
         bool sorting  = false; 
         fstream file;
         vector<Task> vecTask;
@@ -334,12 +334,12 @@ void menu::showTasks(User user) {
                 i++;
             }
             file.close();
-            cout << "[-1] - Îòñîðòðîâàòü ïî çàâåðøåííîñòè" << endl;
-            cout << "[-2] - Ïîèñê çàïèñè ïî èìåíè" << endl;
-            cout << "[0] Âûõîä" << endl;
+            cout << "[-1] - Отсортровать по завершенности" << endl;
+            cout << "[-2] - Поиск записи по имени" << endl;
+            cout << "[0] Выход" << endl;
         }
         else {
-            cout << "Îøèáî÷êà âûøëà";
+            cout << "Ошибочка вышла";
         }
         int temp = GetInt();
         if (temp > 0 && temp < j) {
@@ -368,7 +368,7 @@ void menu::showTasks(User user) {
             
         }
         else {
-            cout << "Òàêîé çàïèñè íåò" << endl;
+            cout << "Такой записи нет" << endl;
         }
 
         cin.ignore(10000, '\n');
@@ -391,7 +391,7 @@ void menu::showTasks(User user) {
 void menu::showErrors(User user) {
     while (true) {
         system("cls");
-        cout << "Îøèáêè\n" << endl;
+        cout << "Ошибки\n" << endl;
         bool sorting = false;
         fstream file;
         vector<Error> vecErr;
@@ -418,12 +418,12 @@ void menu::showErrors(User user) {
                 i++;
             }
             file.close();
-            cout << "[-1] - Îòñîðòèðîâàòü ïî çàâåðøåííîñòè" << endl;
-            cout << "[-2] - Ïîèñê ïî èìåíè" << endl;
-            cout << "[0] Âûõîä" << endl;
+            cout << "[-1] - Отсортировать по завершенности" << endl;
+            cout << "[-2] - Поиск по имени" << endl;
+            cout << "[0] Выход" << endl;
         }
         else {
-            cout << "Îøèáî÷êà âûøëà";
+            cout << "Ошибочка вышла";
         }
         int temp = GetInt();
         if (temp > 0 && temp < j) {
@@ -451,7 +451,7 @@ void menu::showErrors(User user) {
             break;
         }
         else {
-            cout << "Òàêîé çàïèñè íåò" << endl;
+            cout << "Такой записи нет" << endl;
         }
 
         cin.ignore(10000, '\n');
@@ -476,7 +476,7 @@ void menu::adminMenu() {
     system("cls");
     cout << "Admin menu" << endl;
     while (true) {
-        cout << "×òî áû âû õîòåëè ïðîñìîòðåòü?\n\t[1] - Çàäà÷è\n\t[2] - Îøèáêè\n\t[0] - Âûõîä" << endl;
+        cout << "Что бы вы хотели просмотреть?\n\t[1] - Задачи\n\t[2] - Ошибки\n\t[0] - Выход" << endl;
         int t = GetInt();
         if (t == 1) {
             menu::showTasks();
@@ -489,14 +489,14 @@ void menu::adminMenu() {
             break;
         }
         else {
-            cout << "Ââåäèòå êîððåòíûé íîìåð" << endl;
+            cout << "Введите корретный номер" << endl;
         }
     }
 }
 void addTask(vector<Task> &vecTask)
 {
     system("cls");
-    cout << "Ââåäèòå èìÿ çàäà÷è, êîòîðóþ õîòèòå ñîçäàòü: ";
+    cout << "Введите имя задачи, которую хотите создать: ";
     Task task;
     string name;
     bool found = false;
@@ -505,12 +505,12 @@ void addTask(vector<Task> &vecTask)
     getline(cin, name);
     for (int i = 0; i < vecTask.size(); i++) {
         if (vecTask[i].getName() == name) {
-            cout << "Òàêîå èìÿ óæå ñóùåñòâóåò" << endl;
+            cout << "Такое имя уже существует" << endl;
             found = true;
         }
     }
     if (found) {
-        cout << "Òàêîå èìÿ óæå ñóùåñòâóåò" << endl;
+        cout << "Такое имя уже существует" << endl;
         addTask(vecTask);
     }
     task.setInformation(name);
@@ -522,18 +522,18 @@ void editTask(vector<Task> &vecTask, int i)
     system("cls");
     cin.ignore(10000, '\n');
     cin.clear();
-    cout << "Ââåäèòå íîâîå èìÿ çàäà÷è: ";
+    cout << "Введите новое имя задачи: ";
     string name;
     bool found = false;
     getline(cin, name);
     for (int j = 0; j < vecTask.size(); j++) {
         if (vecTask[j].getName() == name) {
-            cout << "Òàêîå èìÿ óæå ñóùåñòâóåò" << endl;
+            cout << "Такое имя уже существует" << endl;
             found = true;
         }
     }
     if (found) {
-        cout << "Òàêîå èìÿ óæå ñóùåñòâóåò" << endl;
+        cout << "Такое имя уже существует" << endl;
         editTask(vecTask, i);
     }
     vecTask[--i].setInformation(name);
@@ -553,7 +553,7 @@ void delErr(vector<Error>& vecErr, int i) {
 void menu::showTasks() {
     while (true) {
         system("cls");
-        cout << "Êàêóþ çàïèñü õîòèòå îòðåäàêòèðîâàòü" << endl;
+        cout << "Какую запись хотите отредактировать" << endl;
         fstream file;
         vector<Task> vecTask;
         Task a;
@@ -569,14 +569,14 @@ void menu::showTasks() {
                 i++;
             }
             file.close();
-            cout << "\n" << "[-1] Ñîçäàòü íîâóþ çàïèñü" << endl;
-            cout << "[-2] Îòñîðòèðîâàòü ïî çàâåðøåííîñòè" << endl;
-            cout << "[-3] Êàëüêóëÿòîð" << endl;
-            cout << "[-4] Ïîèñê ïî èìåíè" << endl;
-            cout << "[0] Âûõîä" << endl;
+            cout << "\n" << "[-1] Создать новую запись" << endl;
+            cout << "[-2] Отсортировать по завершенности" << endl;
+            cout << "[-3] Калькулятор" << endl;
+            cout << "[-4] Поиск по имени" << endl;
+            cout << "[0] Выход" << endl;
         }
         else {
-            cout << "Îøèáî÷êà âûøëà";
+            cout << "Ошибочка вышла";
         }
         cin.ignore(10000, '\n');
         cin.clear();
@@ -585,7 +585,7 @@ void menu::showTasks() {
             cin.ignore(10000, '\n');
             cin.clear();
             int y;
-            cout << "[0] - Îòìåòèòü êàê ñäåëàííîå\n[1] - Èçìåíèòü\n[2] - Óäàëèòü" << endl;
+            cout << "[0] - Отметить как сделанное\n[1] - Изменить\n[2] - Удалить" << endl;
             y = GetInt();
             if (y == 0) {
                 vecTask[--temp].setDone();
@@ -597,7 +597,7 @@ void menu::showTasks() {
                 delTask(vecTask, temp);
             }
             else {
-                cout << "Íåêîðåòíûé íîìåð" << endl;
+                cout << "Некоретный номер" << endl;
             }
         }
         else if (temp == -1) {
@@ -626,7 +626,7 @@ void menu::showTasks() {
             break;
         }
         else {
-            cout << "Òàêîé çàïèñè íåò" << endl;
+            cout << "Такой записи нет" << endl;
         }
         
         cin.ignore(10000, '\n');
@@ -641,37 +641,37 @@ void menu::showTasks() {
 }
 void menu::editErr(vector<Error>& vecErr, int i) {
     system("cls");
-    cout << "Ââåäèòå íîâîå èìÿ îøèáêè: ";
+    cout << "Введите новое имя ошибки: ";
     string name;
     bool found = false;
     getline(cin, name);
     for (int j = 0; j < vecErr.size(); j++) {
         if (vecErr[j].getName() == name) {
-            cout << "Òàêîå èìÿ óæå ñóùåñòâóåò" << endl;
+            cout << "Такое имя уже существует" << endl;
             found = true;
         }
     }
     if (found) {
-        cout << "Òàêîå èìÿ óæå ñóùåñòâóåò" << endl;
+        cout << "Такое имя уже существует" << endl;
         editErr(vecErr, i);
     }
     vecErr[--i].setInformation(name);
 }
 void addErr(vector<Error> &vecErr) {
     system("cls");
-    cout << "Ââåäèòå èìÿ îøèáêè, êîòîðóþ õîòèòå ñîçäàòü: ";
+    cout << "Введите имя ошибки, которую хотите создать: ";
     Error error;
     string name;
     bool found = false;
     getline(cin, name);
     for (int i = 0; i < vecErr.size(); i++) {
         if (vecErr[i].getName() == name) {
-            cout << "Òàêîå èìÿ óæå ñóùåñòâóåò" << endl;
+            cout << "Такое имя уже существует" << endl;
             found = true;
         }
     }
     if (found) {
-        cout << "Òàêîå èìÿ óæå ñóùåñòâóåò" << endl;
+        cout << "Такое имя уже существует" << endl;
         addErr(vecErr);
     }
     error.setInformation(name);
@@ -680,7 +680,7 @@ void addErr(vector<Error> &vecErr) {
 void menu::showErrors() {
     while (true) {
         system("cls");
-        cout << "Êàêóþ çàïèñü õîòèòå îòðåäàêòèðîâàòü" << endl;
+        cout << "Какую запись хотите отредактировать" << endl;
         fstream file;
         vector<Error> vecErr;
         Error a;
@@ -696,20 +696,20 @@ void menu::showErrors() {
                 i++;
             }
             file.close();
-            cout << "\n" << "[-1] Ñîçäàòü íîâóþ çàïèñü" << endl;
-            cout << "[-2] Îòñîðòèðîâàòü ïî çàâåðøåííîñòè" << endl;
-            cout << "[-3] Íàéòè ïî èìåíè" << endl;
-            cout << "[0] Âûõîä" << endl;
+            cout << "\n" << "[-1] Создать новую запись" << endl;
+            cout << "[-2] Отсортировать по завершенности" << endl;
+            cout << "[-3] Найти по имени" << endl;
+            cout << "[0] Выход" << endl;
         }
         else {
-            cout << "Îøèáî÷êà âûøëà";
+            cout << "Ошибочка вышла";
         }
         int temp = GetInt();
         if (temp > 0 && temp < i) {
             cin.ignore(10000, '\n');
             cin.clear();
             int y;
-            cout << "[0] - Îòìåòèòü êàê ñäåëàííîå\n[1] - Èçìåíèòü\n[2] - Óäàëèòü" << endl;
+            cout << "[0] - Отметить как сделанное\n[1] - Изменить\n[2] - Удалить" << endl;
             y = GetInt();
             if (y == 0) {
                 vecErr[--temp].setDone();
@@ -721,7 +721,7 @@ void menu::showErrors() {
                 delErr(vecErr, temp);
             }
             else {
-                cout << "Íåêîðåòíûé íîìåð" << endl;
+                cout << "Некоретный номер" << endl;
             }
         }
         else if (temp == -1) {
@@ -747,7 +747,7 @@ void menu::showErrors() {
             break;
         }
         else {
-            cout << "Òàêîé çàïèñè íåò" << endl;
+            cout << "Такой записи нет" << endl;
         }
 
         cin.ignore(10000, '\n');
