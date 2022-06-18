@@ -38,7 +38,7 @@ namespace input {
         while (!(cin >> i)) {
             cin.clear();
             while (cin.get() != '\n' && i >= 0) {}
-            cout << "Введите другой номер:" << endl;
+            cout << "Р’РІРµРґРёС‚Рµ РґСЂСѓРіРѕР№ РЅРѕРјРµСЂ:" << endl;
         }
         return i;
     }
@@ -55,7 +55,7 @@ public:
     void setDone()
     {
         string str;
-        cout << "Завершено? (Y/N): ";
+        cout << "Р—Р°РІРµСЂС€РµРЅРѕ? (Y/N): ";
         cin >> str;
         this->isFinished = str == "Y";
     }
@@ -63,19 +63,19 @@ public:
         string str;
         strcpy(this->taskName, name.c_str());
 
-        cout << "Введите описание задачи: ";
+        cout << "Р’РІРµРґРёС‚Рµ РѕРїРёСЃР°РЅРёРµ Р·Р°РґР°С‡Рё: ";
         getline(cin, str);
         strcpy(this->taskDescription, str.c_str());
-        cout << "Введите имя пользователя, которому принадлежит задача: ";
+        cout << "Р’РІРµРґРёС‚Рµ РёРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ, РєРѕС‚РѕСЂРѕРјСѓ РїСЂРёРЅР°РґР»РµР¶РёС‚ Р·Р°РґР°С‡Р°: ";
         getline(cin, str);
         strcpy(this->owner, str.c_str());
-        cout << "Завершено? (Y/N): ";
+        cout << "Р—Р°РІРµСЂС€РµРЅРѕ? (Y/N): ";
         cin >> str;
         this->isFinished = str == "Y";
     }
     void getInformation() {
-        cout << "Задача: " << this->taskName << "\nОписание: " << this->taskDescription
-            << "\nСтатус: " << (this->isFinished ? "Завершено" : "Не завершено") << "\nПринадлежит: " << owner << "\n" << endl;
+        cout << "Р—Р°РґР°С‡Р°: " << this->taskName << "\nРћРїРёСЃР°РЅРёРµ: " << this->taskDescription
+            << "\nРЎС‚Р°С‚СѓСЃ: " << (this->isFinished ? "Р—Р°РІРµСЂС€РµРЅРѕ" : "РќРµ Р·Р°РІРµСЂС€РµРЅРѕ") << "\nРџСЂРёРЅР°РґР»РµР¶РёС‚: " << owner << "\n" << endl;
     }
     bool returnIsFinished() {
         return isFinished;
