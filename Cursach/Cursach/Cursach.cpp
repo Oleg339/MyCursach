@@ -61,7 +61,7 @@ public:
     void setDone()
     {
         string str;
-        cout << "Завершено? (Y/N): ";
+        cout << "Г‡Г ГўГҐГ°ГёГҐГ­Г®? (Y/N): ";
         cin >> str;
         this->isFinished = str == "Y";
     }
@@ -72,39 +72,39 @@ public:
         getline(cin, name);
         strcpy(this->errorName, name.c_str());
         string str;
-        cout << "Введите описание ошибки: ";
+        cout << "Г‚ГўГҐГ¤ГЁГІГҐ Г®ГЇГЁГ±Г Г­ГЁГҐ Г®ГёГЁГЎГЄГЁ: ";
         getline(cin, str);
         strcpy(this->errorDescription, str.c_str());
 
         while (true) {
-            cout << "Введите статус ошибки: " << endl;
-            cout << "\n\t[1] - Приемлемый\n\t[2] - Средний\n\t[3] - Критический" << endl;
+            cout << "Г‚ГўГҐГ¤ГЁГІГҐ Г±ГІГ ГІГіГ± Г®ГёГЁГЎГЄГЁ: " << endl;
+            cout << "\n\t[1] - ГЏГ°ГЁГҐГ¬Г«ГҐГ¬Г»Г©\n\t[2] - Г‘Г°ГҐГ¤Г­ГЁГ©\n\t[3] - ГЉГ°ГЁГІГЁГ·ГҐГ±ГЄГЁГ©" << endl;
             int status = GetInt();
             if (status > 0 && status <= 3) {
                 if (status == 1) {
-                    strcpy(this->errorStatus, "Приемлемый");
+                    strcpy(this->errorStatus, "ГЏГ°ГЁГҐГ¬Г«ГҐГ¬Г»Г©");
                     break;
                 }
                 else if (status == 2) {
-                    strcpy(this->errorStatus, "Средний");
+                    strcpy(this->errorStatus, "Г‘Г°ГҐГ¤Г­ГЁГ©");
                     break;
                 }
                 else if (status == 3) {
-                    strcpy(this->errorStatus, "Критический");
+                    strcpy(this->errorStatus, "ГЉГ°ГЁГІГЁГ·ГҐГ±ГЄГЁГ©");
                     break;
                 }
             }
             else {
-                cout << "\nВведите корректный статус";
+                cout << "\nГ‚ГўГҐГ¤ГЁГІГҐ ГЄГ®Г°Г°ГҐГЄГІГ­Г»Г© Г±ГІГ ГІГіГ±";
                 continue;
             }
         }
-        cout << "Введите имя пользователя, которому принадлежит ошибка: ";
+        cout << "Г‚ГўГҐГ¤ГЁГІГҐ ГЁГ¬Гї ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї, ГЄГ®ГІГ®Г°Г®Г¬Гі ГЇГ°ГЁГ­Г Г¤Г«ГҐГ¦ГЁГІ Г®ГёГЁГЎГЄГ : ";
         cin.ignore(10000, '\n');
         cin.clear();
         getline(cin, str);
         strcpy(this->owner,str.c_str());
-        cout << "Завершено? (Y/N): ";
+        cout << "Г‡Г ГўГҐГ°ГёГҐГ­Г®? (Y/N): ";
         cin >> str;
         this->isFinished = str == "Y";
     }
@@ -112,8 +112,8 @@ public:
         return isFinished;
     }
     void getInformation() {
-        cout << "Ошибка: " << this->errorName << "\nОписание: " << this->errorDescription << "\nКритичность: " << this->errorStatus
-            << "\nСтатус: " << (this->isFinished ? "Завершено" : "Не завершено") <<"\nПринадлежит: "<< owner << "\n" << endl;
+        cout << "ГЋГёГЁГЎГЄГ : " << this->errorName << "\nГЋГЇГЁГ±Г Г­ГЁГҐ: " << this->errorDescription << "\nГЉГ°ГЁГІГЁГ·Г­Г®Г±ГІГј: " << this->errorStatus
+            << "\nГ‘ГІГ ГІГіГ±: " << (this->isFinished ? "Г‡Г ГўГҐГ°ГёГҐГ­Г®" : "ГЌГҐ Г§Г ГўГҐГ°ГёГҐГ­Г®") <<"\nГЏГ°ГЁГ­Г Г¤Г«ГҐГ¦ГЁГІ: "<< owner << "\n" << endl;
     }
     friend bool operator<(Error a, Error b) {
         return a.returnIsFinished() < b.returnIsFinished();
@@ -122,8 +122,8 @@ public:
         return a.returnIsFinished() > b.returnIsFinished();
     }
     friend ostream& operator << (ostream os, const Error err) {
-        return os << "Ошибка: " << err.errorName << "\nОписание: " << err.errorDescription << "\nКритичность: " << err.errorStatus
-            << "\nСтатус: " << (err.isFinished ? "Завершено" : "Не завершено") << "\nПринадлежит: " << err.owner << "\n" << endl;
+        return os << "ГЋГёГЁГЎГЄГ : " << err.errorName << "\nГЋГЇГЁГ±Г Г­ГЁГҐ: " << err.errorDescription << "\nГЉГ°ГЁГІГЁГ·Г­Г®Г±ГІГј: " << err.errorStatus
+            << "\nГ‘ГІГ ГІГіГ±: " << (err.isFinished ? "Г‡Г ГўГҐГ°ГёГҐГ­Г®" : "ГЌГҐ Г§Г ГўГҐГ°ГёГҐГ­Г®") << "\nГЏГ°ГЁГ­Г Г¤Г«ГҐГ¦ГЁГІ: " << err.owner << "\n" << endl;
     }
 };
 
@@ -162,9 +162,9 @@ public:
     static void editErr(vector<Error>& vecErr, int i);
 };
 
-string UserFile("C:\\Users\\bahar\\Desktop\\userList.bin");
-string TasksFile("C:\\Users\\bahar\\Desktop\\tasksList.bin");
-string ErrorsFile("C:\\Users\\bahar\\Desktop\\errorsList.bin");
+string UserFile("C:\\userList.bin");
+string TasksFile("C:\\tasksList.bin");
+string ErrorsFile("C:\\errorsList.bin");
 
 int main(int argc, char* argv[])
 {
@@ -186,7 +186,7 @@ void menu::userChoice() {
         string name, access;
         string password;
         int temp;
-        cout << "Какого пользователя хотите выбрать?" << endl;
+        cout << "ГЉГ ГЄГ®ГЈГ® ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї ГµГ®ГІГЁГІГҐ ГўГ»ГЎГ°Г ГІГј?" << endl;
         fstream file;
         User a;
         file.open(UserFile, ios::app | ios::out | ios::in | ios::binary);
@@ -194,15 +194,15 @@ void menu::userChoice() {
         if (file) {
             file.seekg(0);
             while (file.read(reinterpret_cast<char*>(&a), sizeof(User))) {
-                cout << i << ") " << a.getUserName() << ": " << (a.getStatus() ? "Админ" : "Пользователь") << endl;
+                cout << i << ") " << a.getUserName() << ": " << (a.getStatus() ? "ГЂГ¤Г¬ГЁГ­" : "ГЏГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гј") << endl;
                 i++;
             }
             file.close();
-            cout << "\n" << "[-1] Создать нового пользователя" << endl;
-            cout << "[0] Выход" << endl;
+            cout << "\n" << "[-1] Г‘Г®Г§Г¤Г ГІГј Г­Г®ГўГ®ГЈГ® ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї" << endl;
+            cout << "[0] Г‚Г»ГµГ®Г¤" << endl;
         }
         else {
-            cout << "Ошибочка вышла";
+            cout << "ГЋГёГЁГЎГ®Г·ГЄГ  ГўГ»ГёГ«Г ";
         }
         temp = GetInt();
         cin.ignore(10000, '\n');
@@ -213,10 +213,10 @@ void menu::userChoice() {
             file.seekp(pos, ios_base::beg);
             file.read(reinterpret_cast<char*>(&a), sizeof(User));
             file.close();
-            cout << "Введите пароль:" << endl;
+            cout << "Г‚ГўГҐГ¤ГЁГІГҐ ГЇГ Г°Г®Г«Гј:" << endl;
             password = InputPassword();
             if (to_string(hash_value(password)) == a.getPassword()) {
-                cout << "\n" << "Пароль совпал" << endl;
+                cout << "\n" << "ГЏГ Г°Г®Г«Гј Г±Г®ГўГЇГ Г«" << endl;
                 if (a.getStatus()) {
                     menu::adminMenu();
                 }
@@ -225,7 +225,7 @@ void menu::userChoice() {
                 }
             }
             else {
-                cout << "\nНеправильный пароль" << endl;
+                cout << "\nГЌГҐГЇГ°Г ГўГЁГ«ГјГ­Г»Г© ГЇГ Г°Г®Г«Гј" << endl;
             }
         }
         else if (temp == -1) {
@@ -235,7 +235,7 @@ void menu::userChoice() {
             exit(0);
         }
         else {
-            cout << "Такого пользователя нет" << endl;
+            cout << "Г’Г ГЄГ®ГЈГ® ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї Г­ГҐГІ" << endl;
         }
     }
 }
@@ -244,14 +244,14 @@ void menu :: createUser() {
     string name;
     string password;
     system("cls");
-    cout << "Введите имя пользователя:" << endl;
+    cout << "Г‚ГўГҐГ¤ГЁГІГҐ ГЁГ¬Гї ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї:" << endl;
     getline(cin, name);
-    cout << "Введите тип доступа:\n\t[0] - Админ\n\t[1] - Пользователь" << endl;
+    cout << "Г‚ГўГҐГ¤ГЁГІГҐ ГІГЁГЇ Г¤Г®Г±ГІГіГЇГ :\n\t[0] - ГЂГ¤Г¬ГЁГ­\n\t[1] - ГЏГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гј" << endl;
     int access = GetInt();
     cin.ignore(10000, '\n');
     cin.clear();
     bool found = false;
-    cout << "Введите пароль:" << endl;
+    cout << "Г‚ГўГҐГ¤ГЁГІГҐ ГЇГ Г°Г®Г«Гј:" << endl;
     char c;
     int len;
     password = InputPassword();
@@ -267,7 +267,7 @@ void menu :: createUser() {
     file.seekg(0);
     while (file.read(reinterpret_cast<char*>(&a), sizeof(User))) {
         if (name == a.getUserName()) {
-            cout << "Пользователь с этим именем уже существует" << endl;
+            cout << "ГЏГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гј Г± ГЅГІГЁГ¬ ГЁГ¬ГҐГ­ГҐГ¬ ГіГ¦ГҐ Г±ГіГ№ГҐГ±ГІГўГіГҐГІ" << endl;
             system("pause");
             found = true;
             break;
@@ -288,7 +288,7 @@ void menu :: userMenu(User user) {
     cout << "userMenu" << endl;
     
     while (true) {
-        cout << "Что бы вы хотели просмотреть?\n\t[1] - Задачи\n\t[2] - Ошибки\n\t[0] - Выход" << endl;
+        cout << "Г—ГІГ® ГЎГ» ГўГ» ГµГ®ГІГҐГ«ГЁ ГЇГ°Г®Г±Г¬Г®ГІГ°ГҐГІГј?\n\t[1] - Г‡Г Г¤Г Г·ГЁ\n\t[2] - ГЋГёГЁГЎГЄГЁ\n\t[0] - Г‚Г»ГµГ®Г¤" << endl;
         int t = GetInt();
         if (t == 1) {
             menu::showTasks(user);
@@ -301,14 +301,14 @@ void menu :: userMenu(User user) {
             break;
         }
         else {
-            cout << "Введите корретный номер" << endl;
+            cout << "Г‚ГўГҐГ¤ГЁГІГҐ ГЄГ®Г°Г°ГҐГІГ­Г»Г© Г­Г®Г¬ГҐГ°" << endl;
         }
     }  
 }
 void menu::showTasks(User user) {
     while (true) {
         system("cls");
-        cout << "Задачи" << endl;
+        cout << "Г‡Г Г¤Г Г·ГЁ" << endl;
         bool sorting  = false; 
         fstream file;
         vector<Task> vecTask;
@@ -334,12 +334,12 @@ void menu::showTasks(User user) {
                 i++;
             }
             file.close();
-            cout << "[-1] - Отсортровать по завершенности" << endl;
-            cout << "[-2] - Поиск записи по имени" << endl;
-            cout << "[0] Выход" << endl;
+            cout << "[-1] - ГЋГІГ±Г®Г°ГІГ°Г®ГўГ ГІГј ГЇГ® Г§Г ГўГҐГ°ГёГҐГ­Г­Г®Г±ГІГЁ" << endl;
+            cout << "[-2] - ГЏГ®ГЁГ±ГЄ Г§Г ГЇГЁГ±ГЁ ГЇГ® ГЁГ¬ГҐГ­ГЁ" << endl;
+            cout << "[0] Г‚Г»ГµГ®Г¤" << endl;
         }
         else {
-            cout << "Ошибочка вышла";
+            cout << "ГЋГёГЁГЎГ®Г·ГЄГ  ГўГ»ГёГ«Г ";
         }
         int temp = GetInt();
         if (temp > 0 && temp < j) {
@@ -368,7 +368,7 @@ void menu::showTasks(User user) {
             
         }
         else {
-            cout << "Такой записи нет" << endl;
+            cout << "Г’Г ГЄГ®Г© Г§Г ГЇГЁГ±ГЁ Г­ГҐГІ" << endl;
         }
 
         cin.ignore(10000, '\n');
@@ -391,7 +391,7 @@ void menu::showTasks(User user) {
 void menu::showErrors(User user) {
     while (true) {
         system("cls");
-        cout << "Ошибки\n" << endl;
+        cout << "ГЋГёГЁГЎГЄГЁ\n" << endl;
         bool sorting = false;
         fstream file;
         vector<Error> vecErr;
@@ -418,12 +418,12 @@ void menu::showErrors(User user) {
                 i++;
             }
             file.close();
-            cout << "[-1] - Отсортировать по завершенности" << endl;
-            cout << "[-2] - Поиск по имени" << endl;
-            cout << "[0] Выход" << endl;
+            cout << "[-1] - ГЋГІГ±Г®Г°ГІГЁГ°Г®ГўГ ГІГј ГЇГ® Г§Г ГўГҐГ°ГёГҐГ­Г­Г®Г±ГІГЁ" << endl;
+            cout << "[-2] - ГЏГ®ГЁГ±ГЄ ГЇГ® ГЁГ¬ГҐГ­ГЁ" << endl;
+            cout << "[0] Г‚Г»ГµГ®Г¤" << endl;
         }
         else {
-            cout << "Ошибочка вышла";
+            cout << "ГЋГёГЁГЎГ®Г·ГЄГ  ГўГ»ГёГ«Г ";
         }
         int temp = GetInt();
         if (temp > 0 && temp < j) {
@@ -451,7 +451,7 @@ void menu::showErrors(User user) {
             break;
         }
         else {
-            cout << "Такой записи нет" << endl;
+            cout << "Г’Г ГЄГ®Г© Г§Г ГЇГЁГ±ГЁ Г­ГҐГІ" << endl;
         }
 
         cin.ignore(10000, '\n');
@@ -476,7 +476,7 @@ void menu::adminMenu() {
     system("cls");
     cout << "Admin menu" << endl;
     while (true) {
-        cout << "Что бы вы хотели просмотреть?\n\t[1] - Задачи\n\t[2] - Ошибки\n\t[0] - Выход" << endl;
+        cout << "Г—ГІГ® ГЎГ» ГўГ» ГµГ®ГІГҐГ«ГЁ ГЇГ°Г®Г±Г¬Г®ГІГ°ГҐГІГј?\n\t[1] - Г‡Г Г¤Г Г·ГЁ\n\t[2] - ГЋГёГЁГЎГЄГЁ\n\t[0] - Г‚Г»ГµГ®Г¤" << endl;
         int t = GetInt();
         if (t == 1) {
             menu::showTasks();
@@ -489,14 +489,14 @@ void menu::adminMenu() {
             break;
         }
         else {
-            cout << "Введите корретный номер" << endl;
+            cout << "Г‚ГўГҐГ¤ГЁГІГҐ ГЄГ®Г°Г°ГҐГІГ­Г»Г© Г­Г®Г¬ГҐГ°" << endl;
         }
     }
 }
 void addTask(vector<Task> &vecTask)
 {
     system("cls");
-    cout << "Введите имя задачи, которую хотите создать: ";
+    cout << "Г‚ГўГҐГ¤ГЁГІГҐ ГЁГ¬Гї Г§Г Г¤Г Г·ГЁ, ГЄГ®ГІГ®Г°ГіГѕ ГµГ®ГІГЁГІГҐ Г±Г®Г§Г¤Г ГІГј: ";
     Task task;
     string name;
     bool found = false;
@@ -505,12 +505,12 @@ void addTask(vector<Task> &vecTask)
     getline(cin, name);
     for (int i = 0; i < vecTask.size(); i++) {
         if (vecTask[i].getName() == name) {
-            cout << "Такое имя уже существует" << endl;
+            cout << "Г’Г ГЄГ®ГҐ ГЁГ¬Гї ГіГ¦ГҐ Г±ГіГ№ГҐГ±ГІГўГіГҐГІ" << endl;
             found = true;
         }
     }
     if (found) {
-        cout << "Такое имя уже существует" << endl;
+        cout << "Г’Г ГЄГ®ГҐ ГЁГ¬Гї ГіГ¦ГҐ Г±ГіГ№ГҐГ±ГІГўГіГҐГІ" << endl;
         addTask(vecTask);
     }
     task.setInformation(name);
@@ -522,18 +522,18 @@ void editTask(vector<Task> &vecTask, int i)
     system("cls");
     cin.ignore(10000, '\n');
     cin.clear();
-    cout << "Введите новое имя задачи: ";
+    cout << "Г‚ГўГҐГ¤ГЁГІГҐ Г­Г®ГўГ®ГҐ ГЁГ¬Гї Г§Г Г¤Г Г·ГЁ: ";
     string name;
     bool found = false;
     getline(cin, name);
     for (int j = 0; j < vecTask.size(); j++) {
         if (vecTask[j].getName() == name) {
-            cout << "Такое имя уже существует" << endl;
+            cout << "Г’Г ГЄГ®ГҐ ГЁГ¬Гї ГіГ¦ГҐ Г±ГіГ№ГҐГ±ГІГўГіГҐГІ" << endl;
             found = true;
         }
     }
     if (found) {
-        cout << "Такое имя уже существует" << endl;
+        cout << "Г’Г ГЄГ®ГҐ ГЁГ¬Гї ГіГ¦ГҐ Г±ГіГ№ГҐГ±ГІГўГіГҐГІ" << endl;
         editTask(vecTask, i);
     }
     vecTask[--i].setInformation(name);
@@ -553,7 +553,7 @@ void delErr(vector<Error>& vecErr, int i) {
 void menu::showTasks() {
     while (true) {
         system("cls");
-        cout << "Какую запись хотите отредактировать" << endl;
+        cout << "ГЉГ ГЄГіГѕ Г§Г ГЇГЁГ±Гј ГµГ®ГІГЁГІГҐ Г®ГІГ°ГҐГ¤Г ГЄГІГЁГ°Г®ГўГ ГІГј" << endl;
         fstream file;
         vector<Task> vecTask;
         Task a;
@@ -569,14 +569,14 @@ void menu::showTasks() {
                 i++;
             }
             file.close();
-            cout << "\n" << "[-1] Создать новую запись" << endl;
-            cout << "[-2] Отсортировать по завершенности" << endl;
-            cout << "[-3] Калькулятор" << endl;
-            cout << "[-4] Поиск по имени" << endl;
-            cout << "[0] Выход" << endl;
+            cout << "\n" << "[-1] Г‘Г®Г§Г¤Г ГІГј Г­Г®ГўГіГѕ Г§Г ГЇГЁГ±Гј" << endl;
+            cout << "[-2] ГЋГІГ±Г®Г°ГІГЁГ°Г®ГўГ ГІГј ГЇГ® Г§Г ГўГҐГ°ГёГҐГ­Г­Г®Г±ГІГЁ" << endl;
+            cout << "[-3] ГЉГ Г«ГјГЄГіГ«ГїГІГ®Г°" << endl;
+            cout << "[-4] ГЏГ®ГЁГ±ГЄ ГЇГ® ГЁГ¬ГҐГ­ГЁ" << endl;
+            cout << "[0] Г‚Г»ГµГ®Г¤" << endl;
         }
         else {
-            cout << "Ошибочка вышла";
+            cout << "ГЋГёГЁГЎГ®Г·ГЄГ  ГўГ»ГёГ«Г ";
         }
         cin.ignore(10000, '\n');
         cin.clear();
@@ -585,7 +585,7 @@ void menu::showTasks() {
             cin.ignore(10000, '\n');
             cin.clear();
             int y;
-            cout << "[0] - Отметить как сделанное\n[1] - Изменить\n[2] - Удалить" << endl;
+            cout << "[0] - ГЋГІГ¬ГҐГІГЁГІГј ГЄГ ГЄ Г±Г¤ГҐГ«Г Г­Г­Г®ГҐ\n[1] - Г€Г§Г¬ГҐГ­ГЁГІГј\n[2] - Г“Г¤Г Г«ГЁГІГј" << endl;
             y = GetInt();
             if (y == 0) {
                 vecTask[--temp].setDone();
@@ -597,7 +597,7 @@ void menu::showTasks() {
                 delTask(vecTask, temp);
             }
             else {
-                cout << "Некоретный номер" << endl;
+                cout << "ГЌГҐГЄГ®Г°ГҐГІГ­Г»Г© Г­Г®Г¬ГҐГ°" << endl;
             }
         }
         else if (temp == -1) {
@@ -626,7 +626,7 @@ void menu::showTasks() {
             break;
         }
         else {
-            cout << "Такой записи нет" << endl;
+            cout << "Г’Г ГЄГ®Г© Г§Г ГЇГЁГ±ГЁ Г­ГҐГІ" << endl;
         }
         
         cin.ignore(10000, '\n');
@@ -641,37 +641,37 @@ void menu::showTasks() {
 }
 void menu::editErr(vector<Error>& vecErr, int i) {
     system("cls");
-    cout << "Введите новое имя ошибки: ";
+    cout << "Г‚ГўГҐГ¤ГЁГІГҐ Г­Г®ГўГ®ГҐ ГЁГ¬Гї Г®ГёГЁГЎГЄГЁ: ";
     string name;
     bool found = false;
     getline(cin, name);
     for (int j = 0; j < vecErr.size(); j++) {
         if (vecErr[j].getName() == name) {
-            cout << "Такое имя уже существует" << endl;
+            cout << "Г’Г ГЄГ®ГҐ ГЁГ¬Гї ГіГ¦ГҐ Г±ГіГ№ГҐГ±ГІГўГіГҐГІ" << endl;
             found = true;
         }
     }
     if (found) {
-        cout << "Такое имя уже существует" << endl;
+        cout << "Г’Г ГЄГ®ГҐ ГЁГ¬Гї ГіГ¦ГҐ Г±ГіГ№ГҐГ±ГІГўГіГҐГІ" << endl;
         editErr(vecErr, i);
     }
     vecErr[--i].setInformation(name);
 }
 void addErr(vector<Error> &vecErr) {
     system("cls");
-    cout << "Введите имя ошибки, которую хотите создать: ";
+    cout << "Г‚ГўГҐГ¤ГЁГІГҐ ГЁГ¬Гї Г®ГёГЁГЎГЄГЁ, ГЄГ®ГІГ®Г°ГіГѕ ГµГ®ГІГЁГІГҐ Г±Г®Г§Г¤Г ГІГј: ";
     Error error;
     string name;
     bool found = false;
     getline(cin, name);
     for (int i = 0; i < vecErr.size(); i++) {
         if (vecErr[i].getName() == name) {
-            cout << "Такое имя уже существует" << endl;
+            cout << "Г’Г ГЄГ®ГҐ ГЁГ¬Гї ГіГ¦ГҐ Г±ГіГ№ГҐГ±ГІГўГіГҐГІ" << endl;
             found = true;
         }
     }
     if (found) {
-        cout << "Такое имя уже существует" << endl;
+        cout << "Г’Г ГЄГ®ГҐ ГЁГ¬Гї ГіГ¦ГҐ Г±ГіГ№ГҐГ±ГІГўГіГҐГІ" << endl;
         addErr(vecErr);
     }
     error.setInformation(name);
@@ -680,7 +680,7 @@ void addErr(vector<Error> &vecErr) {
 void menu::showErrors() {
     while (true) {
         system("cls");
-        cout << "Какую запись хотите отредактировать" << endl;
+        cout << "ГЉГ ГЄГіГѕ Г§Г ГЇГЁГ±Гј ГµГ®ГІГЁГІГҐ Г®ГІГ°ГҐГ¤Г ГЄГІГЁГ°Г®ГўГ ГІГј" << endl;
         fstream file;
         vector<Error> vecErr;
         Error a;
@@ -696,20 +696,20 @@ void menu::showErrors() {
                 i++;
             }
             file.close();
-            cout << "\n" << "[-1] Создать новую запись" << endl;
-            cout << "[-2] Отсортировать по завершенности" << endl;
-            cout << "[-3] Найти по имени" << endl;
-            cout << "[0] Выход" << endl;
+            cout << "\n" << "[-1] Г‘Г®Г§Г¤Г ГІГј Г­Г®ГўГіГѕ Г§Г ГЇГЁГ±Гј" << endl;
+            cout << "[-2] ГЋГІГ±Г®Г°ГІГЁГ°Г®ГўГ ГІГј ГЇГ® Г§Г ГўГҐГ°ГёГҐГ­Г­Г®Г±ГІГЁ" << endl;
+            cout << "[-3] ГЌГ Г©ГІГЁ ГЇГ® ГЁГ¬ГҐГ­ГЁ" << endl;
+            cout << "[0] Г‚Г»ГµГ®Г¤" << endl;
         }
         else {
-            cout << "Ошибочка вышла";
+            cout << "ГЋГёГЁГЎГ®Г·ГЄГ  ГўГ»ГёГ«Г ";
         }
         int temp = GetInt();
         if (temp > 0 && temp < i) {
             cin.ignore(10000, '\n');
             cin.clear();
             int y;
-            cout << "[0] - Отметить как сделанное\n[1] - Изменить\n[2] - Удалить" << endl;
+            cout << "[0] - ГЋГІГ¬ГҐГІГЁГІГј ГЄГ ГЄ Г±Г¤ГҐГ«Г Г­Г­Г®ГҐ\n[1] - Г€Г§Г¬ГҐГ­ГЁГІГј\n[2] - Г“Г¤Г Г«ГЁГІГј" << endl;
             y = GetInt();
             if (y == 0) {
                 vecErr[--temp].setDone();
@@ -721,7 +721,7 @@ void menu::showErrors() {
                 delErr(vecErr, temp);
             }
             else {
-                cout << "Некоретный номер" << endl;
+                cout << "ГЌГҐГЄГ®Г°ГҐГІГ­Г»Г© Г­Г®Г¬ГҐГ°" << endl;
             }
         }
         else if (temp == -1) {
@@ -747,7 +747,7 @@ void menu::showErrors() {
             break;
         }
         else {
-            cout << "Такой записи нет" << endl;
+            cout << "Г’Г ГЄГ®Г© Г§Г ГЇГЁГ±ГЁ Г­ГҐГІ" << endl;
         }
 
         cin.ignore(10000, '\n');
